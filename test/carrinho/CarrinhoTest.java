@@ -13,10 +13,9 @@ import produto.Produto;
 
 class CarrinhoTest {
 
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
+	private Carrinho carrinho;
+	private Produto cpu;
+	private Produto gpu;
 	
 	
 	@BeforeAll
@@ -27,20 +26,27 @@ class CarrinhoTest {
 	static public void print_after() {
 		System.out.println("Encerrando o teste com AfterAll");
 	}
+	@BeforeEach
+	public void initialize() {
+		carrinho = new Carrinho();
+		cpu = new Produto("Ryzen 7", 900.00);
+		gpu = new Produto("RTX 3060", 1600.00);
+	}
 	
 	@DisplayName("Teste adiciona item")
 	@Test
-	public void addItem() {
-		Carrinho carrinho = new Carrinho();
-		Produto cpu = new Produto("Ryzen 7", 900.00);
-		Produto gpu = new Produto("RTX 3060", 1600.00);
-		
+	public void addItem() {	
 		carrinho.addItem(cpu);
 		carrinho.addItem(gpu);
 		
 		Assertions.assertEquals(2, carrinho.getQtdeItems());
 		System.out.println("Rodei o teste 'addItem'");
 
+	}
+	
+	@Test
+	public void deleteItem() {
+		
 	}
 
 }
