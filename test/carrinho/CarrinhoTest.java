@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import produto.Produto;
+import produto.ProdutoNaoEncontradoException;
 
 class CarrinhoTest {
 
@@ -42,11 +43,19 @@ class CarrinhoTest {
 		Assertions.assertEquals(2, carrinho.getQtdeItems());
 		System.out.println("Rodei o teste 'addItem'");
 
+
 	}
 	
+	@DisplayName("Teste Deleta item")
 	@Test
-	public void deleteItem() {
+	public void deleteItem() throws ProdutoNaoEncontradoException {
+		carrinho.addItem(cpu);
+		carrinho.addItem(gpu);
 		
+		carrinho.removeItem(cpu);
+		
+		Assertions.assertEquals(1, carrinho.getQtdeItems());
+		System.out.println("Rodei o teste 'deleteItem'");
 	}
 
 }
