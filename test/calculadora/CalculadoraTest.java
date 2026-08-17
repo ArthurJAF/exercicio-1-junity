@@ -21,7 +21,7 @@ public class CalculadoraTest {
 		calc = new Calculadora();
 	}
 	
-	@DisplayName("Testa a soma de dois n�meros")
+	@DisplayName("Testa a soma de dois numeros")
 	@Test
 	public void testSomaDoisNumeros() {
 		int soma = calc.soma(12, 10);		
