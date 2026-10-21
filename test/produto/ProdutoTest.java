@@ -1,49 +1,60 @@
+
 package produto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
-
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class ProdutoTest {
-	
-	Produto livro;
-	
-	@BeforeEach
-	public void inicializa() {
-		livro = new Produto("IntroduÁ„o ao Teste de Software", 100.00);
-	}
-	
-	@Test
-	public void testCriaProduto() {
-		Assertions.assertAll("livro",
-				() -> assertEquals("IntroduÁ„o ao Teste de Software", livro.getNome()),
-				() -> assertTrue(100.00 == livro.getPreco())						
-				);
-	}
-	
-	@Test
-	public void testProdutosIguais() {
-		Produto livro2 = new Produto("IntroduÁ„o ao Teste de Software", 90.00);
-		
-		assertNotSame(livro, livro2);
-		
-	}
-	
-	@Test
-	public void assertionComHamcrestMatcher() {
-		assertThat(livro.getPreco(), equalTo(100.00));
-		assertThat(livro.getNome(), notNullValue());
-		assertThat(livro.getNome(), containsString("Teste"));
-		assertThat(livro, instanceOf(Produto.class));
-	}
+@DisplayName("Testes do Produto")
+class ProdutoTest {
 
+    private Produto produto;
+
+    @BeforeEach
+    void inicializa() {
+        produto = new Produto("Introdu√ß√£o ao Teste de Software", 100.00);
+    }
+
+    @Test
+    @DisplayName("Deve criar produto com nome e pre√ßo corretos")
+    void deveCriarProdutoCorretamente() {
+        assertEquals("Introdu√ß√£o ao Teste de Software",
+                produto.getNome());
+        assertEquals(100.00, produto.getPreco(), 0.001);
+    }
+
+    @Test
+    @DisplayName("O nome do produto n√£o deve ser nulo")
+    void nomeNaoDeveSerNulo() {
+        assertNotNull(produto.getNome());
+    }
+
+    @Test
+    @DisplayName("O pre√ßo do produto deve ser positivo")
+    void precoDeveSerPositivo() {
+        assertTrue(produto.getPreco() > 0);
+    }
+
+    @Test
+    @DisplayName("Produtos criados separadamente s√£o objetos distintos")
+    void produtosDevemSerObjetosDistintos() {
+        Produto outroProduto =
+                new Produto("Introdu√ß√£o ao Teste de Software", 100.00);
+
+        assertNotSame(produto, outroProduto);
+    }
+
+    @Test
+    @DisplayName("Deve preservar o nome e o pre√ßo informados")
+    void devePreservarDadosInformados() {
+        Produto outroProduto = new Produto("Livro de Java", 75.50);
+
+        assertEquals("Livro de Java", outroProduto.getNome());
+        assertEquals(75.50, outroProduto.getPreco(), 0.001);
+    }
 }
